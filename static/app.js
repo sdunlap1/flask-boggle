@@ -10,7 +10,9 @@ $(document).ready(function () {
         if (response.data.result === "ok") {
           alert("Correct!");
           updateScore(response.data.score);
-        } else if (response.data.result === "not-on-board") {
+        } else if (response.data.result === "already-submitted") {
+          alert("YOU ALREADY SUBMITTED THIS WORD! CHEATER!!")
+        }else if (response.data.result === "not-on-board") {
           alert("Word is not on the board!");
         } else {
           alert("Not a valid word!");
