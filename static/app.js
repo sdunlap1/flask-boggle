@@ -9,6 +9,7 @@ $(document).ready(function () {
       .then(function (response) {
         if (response.data.result === "ok") {
           alert("Correct!");
+          updateScore(response.data.score);
         } else if (response.data.result === "not-on-board") {
           alert("Word is not on the board!");
         } else {
@@ -19,5 +20,8 @@ $(document).ready(function () {
       .catch(function (error) {
         alert("Error processing your guess.");
       });
+    function updateScore(newScore) {
+      $("#score").text(newScore);
+    }
   });
 });
