@@ -15,3 +15,10 @@ def homepage():
 
 if __name__ == '__main__':
   app.run(debug=True)
+
+@app.route('/check-word', methods=['POST'])
+def check_word():
+  word = request.json['word']
+  board = session.get('board', [])
+  response = boggle_game.check_valid_word(board, word)
+  return jsonify({'result': response})
