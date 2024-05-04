@@ -55,7 +55,7 @@ $(document).ready(function () {
           alert("Correct!");
           game.updateScore(word.length);
         } else if (response.data.result === "already-submitted") {
-          alert("You already submitted this word! Cheater!!");
+          alert("YOU ALREADY SUBMITTED THIS WORD! CHEATER!!");
         } else if (response.data.result === "not-on-board") {
           alert("Word is not on the board!");
         } else {
