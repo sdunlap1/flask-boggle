@@ -21,7 +21,7 @@ if __name__ == '__main__':
 def check_word():
 
     # Extract word from JSON
-    word = request.json['word']
+    word = request.json['word'].upper()
 
     # Retrieve current game board from session: Default is empty
     board = session.get('board', [])
@@ -57,6 +57,6 @@ def check_word():
 
 @app.route('/post-score', methods=["POST"])
 def post_score():
-   score = request.json['score']
+   score = request.json.get('score', 0)
    session['high_score'] = max(session.get('high_score', 0), score)
    return jsonify(success=True, high_score=session['high_score'])
