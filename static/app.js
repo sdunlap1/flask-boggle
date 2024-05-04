@@ -11,8 +11,8 @@ $(document).ready(function () {
           alert("Correct!");
           updateScore(response.data.score);
         } else if (response.data.result === "already-submitted") {
-          alert("YOU ALREADY SUBMITTED THIS WORD! CHEATER!!")
-        }else if (response.data.result === "not-on-board") {
+          alert("YOU ALREADY SUBMITTED THIS WORD! CHEATER!!");
+        } else if (response.data.result === "not-on-board") {
           alert("Word is not on the board!");
         } else {
           alert("Not a valid word!");
@@ -26,4 +26,42 @@ $(document).ready(function () {
       $("#score").text(newScore);
     }
   });
+});
+
+class BoggleGame {
+  constructor(seconds = 60) {
+    this.seconds = seconds;
+    this.timer = null;
+    this.updateTimerDisplay();
+  }
+
+  startTimer() {
+    this.timer = setInterval(() => {
+      if (this.seconds > 0) {
+        this.seconds--;
+        this.updateTimerDisplay();
+      } else {
+        this.endGame();
+      }
+    }, 1000);
+  }
+  updateTimerDisplay() {
+    $("#timer").text(this.seconds);
+  }
+
+  endGame() {
+    axios
+      .post("/post-score", { score: this.score })
+      .then((response) => {
+        alert("Final Score Posted");
+      })
+      .catch((error) => {
+        console.error("Error posting score:", error);
+      });
+  }
+}
+
+$(document).ready(() => {
+  const game = new BoggleGame(60);
+  game.startTimer();
 });
