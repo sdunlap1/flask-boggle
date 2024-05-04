@@ -2,7 +2,7 @@ $(document).ready(function () {
   class BoggleGame {
     constructor(seconds = 60, score= 0) {
       this.seconds = seconds;
-      this.score = score;
+      this.score = 0;
       this.timer = null;
       this.updateTimerDisplay();
     }
@@ -22,8 +22,14 @@ $(document).ready(function () {
       $("#countdown").text(this.seconds);  // Ensure this matches the ID in your HTML
     }
 
+    updateScore(newScore) {
+      this.score += newScore; // Update the internal score
+      $("#score").text(this.score); // Update the score display
+    }
+
     endGame() {
       clearInterval(this.timer); // Stop the timer
+      $("#guessForm button").prop("disabled", true); // Disable submit button after timer reaches 0
       axios.post("/post-score", { score: this.score })
         .then(response => {
           alert("Game Over! Final Score Posted: " + response.data.high_score);
@@ -47,7 +53,7 @@ $(document).ready(function () {
       .then(function (response) {
         if (response.data.result === "ok") {
           alert("Correct!");
-          updateScore(response.data.score);
+          game.updateScore(word.length);
         } else if (response.data.result === "already-submitted") {
           alert("You already submitted this word! Cheater!!");
         } else if (response.data.result === "not-on-board") {
