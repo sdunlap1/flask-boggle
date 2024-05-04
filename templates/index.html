@@ -12,7 +12,8 @@
   {% endfor %}
 </table>
 <form action="/check-word" method="POST" id="guessForm">
-  <input type="text" name="word" placeholder="Enter your guess" />
+  <input type="text" name="word" placeholder="Enter your guess" /><span>60 Seconds Left</span>
+  <br />
   <button type="submit">Your Guess is as good as Mine</button>
 </form>
 <div id="score-display">Score: <span id="score">0</span></div>
