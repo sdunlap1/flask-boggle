@@ -1,8 +1,6 @@
-{% extends 'base.html' %}
-{% block title %}Boggle Board{% endblock %}
-
+{% extends 'base.html' %} {% block title %}Boggle Board{% endblock %} 
 {% block content %}
-<table>
+<table id="">
   {% for row in board %}
   <tr>
     {% for letter in row %}
@@ -12,9 +10,26 @@
   {% endfor %}
 </table>
 <form action="/check-word" method="POST" id="guessForm">
-  <input type="text" name="word" placeholder="Enter your guess" /><span id="countdown">60</span>
+  <input type="text" name="word" placeholder="Enter your guess" /><span
+    id="countdown"
+    >60</span
+  >
   <br />
   <button type="submit">Your Guess is as good as Mine</button>
+  
 </form>
+<div>
+  <button id="restart-game">New Game</button>
+</div>
 <div id="score-display">Score: <span id="score">0</span></div>
+
+
+<div id="game-scores">
+  <h2>Game Scores:</h2>
+  <ul>
+    {% for score in game_scores %}
+    <li>Game {{ loop.index }}: {{score}}pts</li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}

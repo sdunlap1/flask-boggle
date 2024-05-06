@@ -1,6 +1,6 @@
 $(document).ready(function () {
   class BoggleGame {
-    constructor(seconds = 60, score= 0) {
+    constructor(seconds = 60, score = 0) {
       this.seconds = seconds;
       this.score = 0;
       this.timer = null;
@@ -17,9 +17,9 @@ $(document).ready(function () {
         }
       }, 1000);
     }
-    
+
     updateTimerDisplay() {
-      $("#countdown").text(this.seconds);  // Ensure this matches the ID in your HTML
+      $("#countdown").text(this.seconds); // Ensure this matches the ID in your HTML
     }
 
     updateScore(newScore) {
@@ -29,9 +29,11 @@ $(document).ready(function () {
 
     endGame() {
       clearInterval(this.timer); // Stop the timer
+      this.timer = null;
       $("#guessForm button").prop("disabled", true); // Disable submit button after timer reaches 0
-      axios.post("/post-score", { score: this.score })
-        .then(response => {
+      axios
+        .post("/post-score", { score: this.score })
+        .then((response) => {
           alert("Game Over! Final Score Posted: " + response.data.high_score);
         })
         .catch((error) => {
@@ -49,7 +51,8 @@ $(document).ready(function () {
 
     var word = $('input[name="word"]').val(); // Use jQuery to get value of input
 
-    axios.post("/check-word", { word: word })
+    axios
+      .post("/check-word", { word: word })
       .then(function (response) {
         if (response.data.result === "ok") {
           alert("Correct!");
@@ -70,5 +73,9 @@ $(document).ready(function () {
     function updateScore(newScore) {
       $("#score").text(newScore);
     }
+  });
+  // Add a button for starting new game
+  $("#restart-game").on("click", function () {
+    window.location.reload();
   });
 });
