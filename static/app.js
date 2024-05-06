@@ -1,6 +1,6 @@
 $(document).ready(function () {
   class BoggleGame {
-    constructor(seconds = 10) {
+    constructor(seconds = 60) {
       this.seconds = seconds;
       this.score = 0;
       this.timer = null;
