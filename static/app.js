@@ -35,6 +35,7 @@ $(document).ready(function () {
         .post("/post-score", { score: this.score })
         .then((response) => {
           alert("Game Over! Final Score Posted: " + this.score); // took forever to figure this one out!
+          this.updateScoreList(this.score, response.data.high_score);
           this.score = 0;
           $("#score").text(this.score);
         })
@@ -42,6 +43,12 @@ $(document).ready(function () {
           console.error("Error posting score:", error);
           alert("Error posting score.");
         });
+    }
+    updateScoreList(score, highScore) {
+      const scoreList = $("#game-scores ul");
+      const gameCount = scoreList.children().length + 1;
+      scoreList.append(`<li>Game ${gameCount}: ${score}pts</li>`);
+      $("#high-score").text(`High Score: ${highScore}`); 
     }
   }
 
