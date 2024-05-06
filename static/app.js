@@ -1,6 +1,6 @@
 $(document).ready(function () {
   class BoggleGame {
-    constructor(seconds = 60, score = 0) {
+    constructor(seconds = 10) {
       this.seconds = seconds;
       this.score = 0;
       this.timer = null;
@@ -34,7 +34,9 @@ $(document).ready(function () {
       axios
         .post("/post-score", { score: this.score })
         .then((response) => {
-          alert("Game Over! Final Score Posted: " + response.data.high_score);
+          alert("Game Over! Final Score Posted: " + this.score); // took forever to figure this one out!
+          this.score = 0;
+          $("#score").text(this.score);
         })
         .catch((error) => {
           console.error("Error posting score:", error);
